@@ -1,0 +1,58 @@
+{
+	"name": "@neoaren/time-picker",
+	"version": "1.0.0",
+	"description": "A modern and easy-to-use React time picker component",
+	"author": "NeoAren",
+	"license": "MIT",
+	"main": "dist/index.cjs.js",
+	"module": "dist/index.esm.js",
+	"scripts": {
+		"build": "cross-env NODE_ENV=production rollup -c",
+		"start": "cross-env NODE_ENV=development rollup -c -w",
+		"prepare": "npm run build",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"homepage": "https://github.com/NeoAren/time-picker#readme",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/NeoAren/time-picker.git"
+	},
+	"bugs": {
+		"url": "https://github.com/NeoAren/time-picker/issues"
+	},
+	"dependencies": {
+		"date-fns": "^1.30.1",
+		"prop-types": "^15.7.2"
+	},
+	"peerDependencies": {
+		"react": ">= 16.8.0",
+		"react-dom": ">= 16.8.0"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.4.5",
+		"@babel/preset-env": "^7.4.5",
+		"@babel/preset-react": "^7.0.0",
+		"cross-env": "^5.2.0",
+		"node-sass": "^4.12.0",
+		"react": "^16.8.6",
+		"react-dom": "^16.8.6",
+		"rollup": "^1.14.3",
+		"rollup-plugin-babel": "^4.3.2",
+		"rollup-plugin-commonjs": "^10.0.0",
+		"rollup-plugin-node-resolve": "^5.0.1",
+		"rollup-plugin-peer-deps-external": "^2.2.0",
+		"rollup-plugin-postcss": "^2.0.3",
+		"rollup-plugin-replace": "^2.2.0"
+	},
+	"keywords": [
+		"react",
+		"react-component",
+		"time-picker",
+		"time",
+		"clock",
+		"input"
+	],
+	"files": [
+		"dist"
+	]
+}
