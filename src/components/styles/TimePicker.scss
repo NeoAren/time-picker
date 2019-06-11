@@ -1,0 +1,62 @@
+//
+// NEO-TIME-PICKER - TIME PICKER DESIGN
+//
+
+// Color variables
+$text-color: #354052;
+$accent-color: #0074d9;
+$border-color: #e6e6e6;
+$background-color: #ffffff;
+$second-text-color: #cccccc;
+
+// TimePicker: picker design
+.neotimepicker-picker {
+   display: grid;
+   width: 190px;
+   position: absolute;
+   border-radius: 5px;
+   background: $background-color;
+   margin: 0 !important;
+	outline: 0 !important;
+	box-sizing: border-box;
+   border: 1px solid $border-color;
+   grid-template-rows: repeat(2, max-content);
+
+// Input wrapper
+&__input-wrapper {
+   width: 100%;
+   height: 31px;
+   border-bottom: 1px solid $border-color; }
+
+// Input field
+&__input {
+   width: 100%;
+   height: 100%;
+   border: none;
+   min-width: 0px;
+   color: $text-color;
+   font-size: 15px;
+   padding: 0px 10px;
+	border-radius: 5px;
+   margin: 0 !important;
+   outline: 0 !important;
+   font-variant: tabular-nums;
+   font-feature-settings: "tnum";
+&::-webkit-input-placeholder {
+   color: $second-text-color; } }
+
+// Body
+&__body {
+   display: grid;
+	grid-template-columns: repeat(3, 1fr); }
+
+// Body list
+&__body-list {
+	display: grid;
+	height: 200px;
+	overflow: hidden scroll;
+	justify-items: center;
+	align-items: center;
+}
+
+}

@@ -1,0 +1,24 @@
+//
+// NEO-TIME-PICKER - WRAPPER DESIGN
+//
+
+// Import 'Open Sans' font family
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600);
+
+// Apply base styles to all neo-time-picker elements
+.neotimepicker-input *, .neotimepicker-picker * {
+   margin: 0;
+   outline: 0;
+   padding: 0;
+   border: none;
+   user-select: none;
+   box-sizing: border-box;
+   font-family: "Open Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif; }
+
+// TimePicker: container
+#neotimepicker-container {
+   top: 0px;
+   left: 0px;
+	width: 100%;
+	z-index: 100;
+   position: absolute; }
