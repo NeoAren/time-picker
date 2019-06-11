@@ -4,15 +4,17 @@
 
 // Color variables
 $text-color: #354052;
-$accent-color: #0074d9;
+$accent-color: #e6f8ff;
 $border-color: #e6e6e6;
+$selected-color: #eeeeee;
 $background-color: #ffffff;
 $second-text-color: #cccccc;
+$list-background-color: #bbbbbb;
 
 // TimePicker: picker design
 .neotimepicker-picker {
    display: grid;
-   width: 190px;
+   width: 170px;
    position: absolute;
    border-radius: 5px;
    background: $background-color;
@@ -47,16 +49,42 @@ $second-text-color: #cccccc;
 
 // Body
 &__body {
-   display: grid;
+	display: grid;
+	grid-gap: 1px;
+	border-radius: 5px;
+	background: $border-color;
 	grid-template-columns: repeat(3, 1fr); }
 
 // Body list
 &__body-list {
-	display: grid;
+   display: grid;
+   // width: 56px;
 	height: 200px;
-	overflow: hidden scroll;
-	justify-items: center;
 	align-items: center;
+	justify-items: center;
+	overflow: hidden;
+&:hover {
+	overflow: hidden scroll; }
+&:first-child {
+	border-bottom-left-radius: 5px; }
+&:last-child {
+	border-bottom-right-radius: 5px; } }
+
+// Body list item
+&__body-list-item {
+	width: 100%;
+   height: 100%;
+   font-size: 14px;
+	padding: 5px 0 5px 10px;
+	background: $background-color;
+&:hover {
+	cursor: pointer;
+	color: $text-color;
+	background: $accent-color; }
+
+&.neotimepicker--selected {
+	background: $selected-color; }
+
 }
 
 }
