@@ -1,0 +1,91 @@
+//
+// NEO-TIME-PICKER - INPUT FIELD DESIGN
+//
+
+// TimePicker: input field
+.neotimepicker-input {
+   display: grid;
+   width: 170px;
+   height: 32px;
+   border-radius: 5px;
+   transition: all .3s;
+   align-items: center;
+   margin: 0 !important;
+   outline: 0 !important;
+   background: #ffffff;
+   box-sizing: border-box;
+   border: 1px solid #dddddd;
+   grid-template-columns: 1fr max-content max-content;
+
+// Input field
+&__field {
+   display: grid;
+   height: 100%;
+   border: none;
+   min-width: 0px;
+   color: #354052;
+   font-size: 15px;
+   padding: 0px 10px;
+   border-radius: 5px;
+   margin: 0 !important;
+   outline: 0 !important;
+   align-content: center;
+   font-variant: tabular-nums;
+   font-feature-settings: "tnum";
+&::-webkit-input-placeholder {
+   color: #bbbbbb; } }
+
+// Clock icon
+&__clock-icon {
+   display: grid;
+   opacity: 1;
+   fill: #dddddd;
+   border-radius: 5px;
+   align-items: center;
+   transition: opacity 0.4s;
+   border: 5px solid #ffffff;
+svg {
+   width: 20px;
+   height: 20px; } }
+
+// Close icon
+&__close-icon {
+   display: grid;
+   height: 100%;
+   opacity: 0;
+   padding: 0;
+   fill: #ffffff;
+   border-radius: 50%;
+   align-items: center;
+   background: #dddddd;
+   border: 0 solid #ffffff;
+   transition: opacity 0.4s, background-color 0.4s;
+svg {
+   width: 0;
+   height: 0; }
+&:hover {
+   cursor: pointer;
+   background: #bbbbbb; } }
+
+// Switch between clock and close icons
+&:hover > &__field:not([value=""]) ~ &__clock-icon {
+   border: 0;
+   padding: 0;
+   opacity: 0;
+svg {
+   width: 0;
+   height: 0; } }
+&:hover > &__field:not([value=""]) ~ &__close-icon {
+   opacity: 1;
+   padding: 3px;
+   border-width: 6px;
+svg {
+   width: 12px;
+   height: 12px; } }
+
+// Hovered and active styles
+&:hover {
+   border-color: #0074d9;
+   cursor: text !important; }
+&:active {
+   box-shadow: 0px 0px 3px #0074d9; } }
