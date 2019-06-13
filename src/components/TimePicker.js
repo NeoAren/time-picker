@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { format, getHours, getMinutes, getSeconds } from 'date-fns';
 
@@ -14,17 +14,31 @@ const TimePicker = ({ id, select, selected }) => {
    const time = !selected ? '' : format(selected, 'HH:mm:ss');
 	const className = 'neotimepicker-picker';
 
+	// Scroll to selected item in list
+	const jumpToSelected = (panel, li) => {
+		const container = document.getElementById(id + '-picker-' + panel);
+		const target = document.getElementById(li);
+		container.scrollTop = (target.offsetTop - 30);
+  };
+
 	// Render picker lists
 	const renderList = (amount, selectedValue) => {
 		const items = [];
 		for (let i = 0; i < amount; i++) {
-			const cN = className + '__body-list-item' + (selectedValue !== i ? '' : ' neotimepicker--selected');
+			const cN = selectedValue !== i ? '' : 'neotimepicker--selected';
 			items.push(
-				<div key={i} className={cN}>{i < 10 ? '0' + i : i}</div>
+				<li key={i} id={i} className={cN}>{i < 10 ? '0' + i : i}</li>
 			);
 		}
 		return items;
 	};
+
+	// Scroll to selected values
+	useEffect(() => {
+		jumpToSelected('h', getHours(selected));
+		jumpToSelected('m', getMinutes(selected));
+		jumpToSelected('s', getSeconds(selected));
+	}, [selected]);
 
 	// Render 'TimePicker' component
 	return (
@@ -33,9 +47,21 @@ const TimePicker = ({ id, select, selected }) => {
             <input className={className + '__input'} autoFocus={true} defaultValue={time} placeholder="hh:mm:ss" />
          </div>
          <div className={className + '__body'}>
-				<div className={className + '__body-list'}>{renderList(24, getHours(selected))}</div>
-				<div className={className + '__body-list'}>{renderList(60, getMinutes(selected))}</div>
-				<div className={className + '__body-list'}>{renderList(60, getSeconds(selected))}</div>
+				<div id={id + '-picker-h'} className={className + '__body-panel'}>
+					<ul>
+						{renderList(24, getHours(selected))}
+					</ul>
+				</div>
+				<div id={id + '-picker-m'} className={className + '__body-panel'}>
+					<ul>
+						{renderList(60, getMinutes(selected))}
+					</ul>
+				</div>
+				<div id={id + '-picker-s'} className={className + '__body-panel'}>
+					<ul>
+						{renderList(60, getSeconds(selected))}
+					</ul>
+				</div>
 			</div>
       </div>
 	);

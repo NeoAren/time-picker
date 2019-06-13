@@ -55,36 +55,34 @@ $list-background-color: #bbbbbb;
 	background: $border-color;
 	grid-template-columns: repeat(3, 1fr); }
 
-// Body list
-&__body-list {
-   display: grid;
-   // width: 56px;
-	height: 200px;
-	align-items: center;
-	justify-items: center;
+// Body panel containing a list of items
+&__body-panel {
+	height: 180px;
+	max-height: 180px;
 	overflow: hidden;
+	background: $background-color;
 &:hover {
-	overflow: hidden scroll; }
+	overflow-y: auto; }
 &:first-child {
 	border-bottom-left-radius: 5px; }
 &:last-child {
-	border-bottom-right-radius: 5px; } }
-
-// Body list item
-&__body-list-item {
+	border-bottom-right-radius: 5px; }
+ul {
+   display: grid;
+	align-items: center;
+	justify-items: center;
+	padding-bottom: 150px;
+li {
 	width: 100%;
-   height: 100%;
-   font-size: 14px;
+	height: 30px;
+	font-size: 14px;
 	padding: 5px 0 5px 10px;
 	background: $background-color;
 &:hover {
 	cursor: pointer;
 	color: $text-color;
 	background: $accent-color; }
-
 &.neotimepicker--selected {
-	background: $selected-color; }
-
-}
+	background: $selected-color; } } } }
 
 }
