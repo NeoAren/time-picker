@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
-import { getHours, setHours, getMinutes, setMinutes, getSeconds, setSeconds, getTime } from 'date-fns';
-import { startOfDay, startOfToday, isEqual } from 'date-fns';
+import { getHours, setHours, getMinutes, setMinutes, getSeconds, setSeconds } from 'date-fns';
+import { startOfDay, startOfToday, startOfSecond, isEqual, getTime, parse } from 'date-fns';
 
 import './styles/Wrapper.scss';
 
@@ -11,18 +11,20 @@ import TimePicker from './TimePicker';
 
 const Wrapper = ({ id, defaultValue, onChange, placeholder }) => {
 
-	// Save state of the picker, seconds, minutes and hours in the state
+	// Save status of the picker and the selected time in the state
 	const [open, setOpen] = useState(false);
-	const [selected, setSelected] = useState(defaultValue || null);
+	const defaultSelected = defaultValue ? startOfSecond(defaultValue) : null;
+	const [selected, setSelected] = useState(defaultSelected);
 
 	// Create getNode function
 	const getNode = node => document.querySelector(node);
 
-	const parse = time => ({ h: getHours(time), m: getMinutes(time), s: getSeconds(time) });
+	// Parse time to hour-minute-second format
+	const parseToHMS = time => ({ h: getHours(time), m: getMinutes(time), s: getSeconds(time) });
 
    // Select a new time, update values in state, close picker
    const select = ({ h, m, s }, clear) => {
-		const timestamp = selected ? selected : startOfToday();
+		const timestamp = selected || startOfToday();
 		if (!Number.isInteger(h)) h = getHours(timestamp);
 		if (!Number.isInteger(m)) m = getMinutes(timestamp);
 		if (!Number.isInteger(s)) s = getSeconds(timestamp);
@@ -30,18 +32,19 @@ const Wrapper = ({ id, defaultValue, onChange, placeholder }) => {
 		const time = setHours(setMinutes(setSeconds(startOfDay(timestamp), s), m), h);
 
 		if (onChange) {
-			if (!clear) {
-				if (!isEqual(time, selected)) onChange({ date: time, ms: getTime(time) });
-			} else {
-				onChange(null);
+			if (!isEqual(time, selected)) {
+				onChange(clear ? null : {
+					date: time,
+					dateInMs: getTime(time),
+					ms: getTime(time) - startOfDay(time)
+				});
 			}
 		}
 
 		setSelected(clear ? null : time);
-		setOpen(false);
    };
 
-   // Open or close the picker
+   // Open or close the picker on click events
    useEffect(() => {
       const openCloseTimePicker = e => {
          const inputElement = getNode('#' + id + '-input');
@@ -49,11 +52,11 @@ const Wrapper = ({ id, defaultValue, onChange, placeholder }) => {
          if (!open && inputElement.contains(e.target)) {
             if (window.getSelection().toString() !== '') return;
             if (!inputElement.childNodes[1].contains(e.target)) setOpen(true);
+			}
+			if (open && typeof e.target.className === 'string') {
+            if (e.target.className.includes('neotimepicker-picker__body-item')) return;
          }
-         // if (open && typeof e.target.className === 'string') {
-         //    if (e.target.className.includes('neotimepicker-picker__body-item')) return;
-         // }
-         if (open && !pickerElement.contains(e.target)) select(parse(selected));
+         if (open && !pickerElement.contains(e.target)) setOpen(false);
       };
       document.addEventListener('click', openCloseTimePicker);
       return () => document.removeEventListener('click', openCloseTimePicker);
@@ -61,7 +64,7 @@ const Wrapper = ({ id, defaultValue, onChange, placeholder }) => {
 
    // Close the picker when the window is resized
    useEffect(() => {
-      window.onresize = () => open && select(parse(selected));
+      window.onresize = () => open && setOpen(false);
    });
 
    // Add container element if it doesn't exist

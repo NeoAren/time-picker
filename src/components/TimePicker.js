@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { format, getHours, getMinutes, getSeconds } from 'date-fns';
+import { format, getHours, getMinutes, getSeconds, getTime, startOfToday } from 'date-fns';
 
 import './styles/TimePicker.scss';
 
@@ -10,9 +10,10 @@ const TimePicker = ({ id, select, selected }) => {
    const inputElement = document.querySelector('#' + id + '-input');
    const style = inputElement && { top: inputElement.offsetTop, left: inputElement.offsetLeft };
 
-   // Set formatted time and base classname
+   // Set formatted time, today's date and base classname
    const time = !selected ? '' : format(selected, 'HH:mm:ss');
 	const className = 'neotimepicker-picker';
+	const today = startOfToday();
 
 	// Scroll to selected item in list
 	const jumpToSelected = (panel, li) => {
@@ -21,45 +22,46 @@ const TimePicker = ({ id, select, selected }) => {
 		container.scrollTop = (target.offsetTop - 30);
   };
 
+  // Scroll to selected values
+  useEffect(() => {
+	  jumpToSelected('h', getHours(selected || today));
+	  jumpToSelected('m', getMinutes(selected || today));
+	  jumpToSelected('s', getSeconds(selected || today));
+  });
+
 	// Render picker lists
-	const renderList = (amount, selectedValue) => {
+	const renderList = (amount, selectedValue, onClick) => {
 		const items = [];
 		for (let i = 0; i < amount; i++) {
-			const cN = selectedValue !== i ? '' : 'neotimepicker--selected';
+			const cN = className + '__body-item' + (selectedValue !== i ? '' : ' neotimepicker--selected');
+			const handler = onClick && (() => onClick(Number(i < 10 ? '0' + i : i)));
 			items.push(
-				<li key={i} id={i} className={cN}>{i < 10 ? '0' + i : i}</li>
+				<li key={i} id={i} className={cN} onClick={handler}>{i < 10 ? '0' + i : i}</li>
 			);
 		}
 		return items;
 	};
 
-	// Scroll to selected values
-	useEffect(() => {
-		jumpToSelected('h', getHours(selected));
-		jumpToSelected('m', getMinutes(selected));
-		jumpToSelected('s', getSeconds(selected));
-	}, [selected]);
-
 	// Render 'TimePicker' component
 	return (
 		<div id={id + '-picker'} className={className} style={style}>
          <div className={className + '__input-wrapper'}>
-            <input className={className + '__input'} autoFocus={true} defaultValue={time} placeholder="hh:mm:ss" />
+            <input className={className + '__input'} autoFocus={true} defaultValue={time} placeholder="HH:mm:ss" />
          </div>
          <div className={className + '__body'}>
 				<div id={id + '-picker-h'} className={className + '__body-panel'}>
 					<ul>
-						{renderList(24, getHours(selected))}
+						{renderList(24, getHours(selected || today), val => select({ h: val }))}
 					</ul>
 				</div>
 				<div id={id + '-picker-m'} className={className + '__body-panel'}>
 					<ul>
-						{renderList(60, getMinutes(selected))}
+						{renderList(60, getMinutes(selected || today), val => select({ m: val }))}
 					</ul>
 				</div>
 				<div id={id + '-picker-s'} className={className + '__body-panel'}>
 					<ul>
-						{renderList(60, getSeconds(selected))}
+						{renderList(60, getSeconds(selected || today), val => select({ s: val }))}
 					</ul>
 				</div>
 			</div>
@@ -69,9 +71,9 @@ const TimePicker = ({ id, select, selected }) => {
 };
 
 TimePicker.propTypes = {
-   id: PropTypes.PropTypes.string.isRequired,
+   id: PropTypes.string.isRequired,
    select: PropTypes.func.isRequired,
-   selected: PropTypes.oneOfType([PropTypes.number, PropTypes.instanceOf(Date)])
+   selected: PropTypes.instanceOf(Date)
 };
 
 export default TimePicker;

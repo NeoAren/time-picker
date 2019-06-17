@@ -24,8 +24,8 @@ const InputField = ({ id, selected, clear, placeholder }) => {
 };
 
 InputField.propTypes = {
-   id: PropTypes.PropTypes.string.isRequired,
-   selected: PropTypes.oneOfType([PropTypes.number, PropTypes.instanceOf(Date)]),
+   id: PropTypes.string.isRequired,
+   selected: PropTypes.instanceOf(Date),
    clear: PropTypes.func.isRequired,
    placeholder: PropTypes.string
 };
