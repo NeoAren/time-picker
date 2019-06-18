@@ -103,7 +103,7 @@ const Wrapper = ({ id, defaultValue, onChange, placeholder }) => {
             <TimePicker
                id={id}
                select={select}
-               selected={selected}
+               value={selected}
             />
          ), getNode('#neotimepicker-container'))}
       </>

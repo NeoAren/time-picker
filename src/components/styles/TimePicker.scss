@@ -83,6 +83,7 @@ li {
 	color: $text-color;
 	background: $accent-color; }
 &.neotimepicker--selected {
+	font-weight: 600;
 	background: $selected-color; } } } }
 
 }
