@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 import { getHours, setHours, getMinutes, setMinutes, getSeconds, setSeconds } from 'date-fns';
 import { startOfDay, startOfToday, startOfSecond, isEqual, getTime } from 'date-fns';
 
+import './styles/Wrapper.scss';
+
 import InputField from './InputField';
 import TimePicker from './TimePicker';
-
-import './styles/Wrapper.scss';
 
 const Wrapper = ({ id, defaultValue, onChange, placeholder }) => {
 
