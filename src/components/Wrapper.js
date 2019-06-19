@@ -19,9 +19,6 @@ const Wrapper = ({ id, defaultValue, onChange, placeholder }) => {
 	// Create getNode function
 	const getNode = node => document.querySelector(node);
 
-	// Parse time to hour-minute-second format
-	const parseToHMS = time => ({ h: getHours(time), m: getMinutes(time), s: getSeconds(time) });
-
    // Select a new time, update values in state, close picker
    const select = ({ h, m, s }, clear) => {
 		const timestamp = selected || startOfToday();
