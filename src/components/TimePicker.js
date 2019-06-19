@@ -42,11 +42,11 @@ const TimePicker = ({ id, select, value }) => {
       if (selected.s) scrollToItem(`${id}-picker-s`, `${id}-s-${selected.s}`);
    }, [selected.s]);
 
-	// Render picker lists
+	// Render timepicker lists
 	const renderList = (amount, panel, onClick) => {
 		const items = [];
 		for (let i = 0; i < amount; i++) {
-			const cN = className + '__body-item' + (selected[panel] !== i ? '' : ' neotimepicker--selected');
+			const cN = selected[panel] !== i ? undefined : 'neotimepicker--selected';
 			const handler = onClick && (() => onClick(i));
 			items.push(
 				<li key={i} id={`${id}-${panel}-${i}`} className={cN} onClick={handler}>{i < 10 ? '0' + i : i}</li>

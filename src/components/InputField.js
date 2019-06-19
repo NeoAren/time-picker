@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { format } from 'date-fns';
 
-import './styles/InputField.scss';
+import { Clock, Close } from '../icons';
 
-import { Clock as ClockIcon, Close as CloseIcon } from '../icons';
+import './styles/InputField.scss';
 
 const InputField = ({ id, selected, clear, placeholder }) => {
 
@@ -16,8 +16,8 @@ const InputField = ({ id, selected, clear, placeholder }) => {
    return (
       <div id={id + '-input'} className={className}>
          <input readOnly className={className + '__field'} value={time} placeholder={placeholder} />
-         <i className={className + '__close-icon'} onClick={clear}><CloseIcon /></i>
-         <i className={className + '__clock-icon'}><ClockIcon /></i>
+         <i className={className + '__close-icon'} onClick={clear}><Close /></i>
+         <i className={className + '__clock-icon'}><Clock /></i>
       </div>
    );
 

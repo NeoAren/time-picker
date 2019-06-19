@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
 import { getHours, setHours, getMinutes, setMinutes, getSeconds, setSeconds } from 'date-fns';
-import { startOfDay, startOfToday, startOfSecond, isEqual, getTime, parse } from 'date-fns';
-
-import './styles/Wrapper.scss';
+import { startOfDay, startOfToday, startOfSecond, isEqual, getTime } from 'date-fns';
 
 import InputField from './InputField';
 import TimePicker from './TimePicker';
+
+import './styles/Wrapper.scss';
 
 const Wrapper = ({ id, defaultValue, onChange, placeholder }) => {
 
@@ -53,9 +53,6 @@ const Wrapper = ({ id, defaultValue, onChange, placeholder }) => {
             if (window.getSelection().toString() !== '') return;
             if (!inputElement.childNodes[1].contains(e.target)) setOpen(true);
 			}
-			if (open && typeof e.target.className === 'string') {
-            if (e.target.className.includes('neotimepicker-picker__body-item')) return;
-         }
          if (open && !pickerElement.contains(e.target)) setOpen(false);
       };
       document.addEventListener('click', openCloseTimePicker);

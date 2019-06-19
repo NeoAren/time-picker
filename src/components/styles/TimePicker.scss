@@ -11,7 +11,7 @@ $background-color: #ffffff;
 $second-text-color: #cccccc;
 $list-background-color: #bbbbbb;
 
-// TimePicker: picker design
+// TimePicker design
 .neotimepicker-picker {
    display: grid;
    width: 170px;
@@ -84,6 +84,4 @@ li {
 	background: $accent-color; }
 &.neotimepicker--selected {
 	font-weight: 600;
-	background: $selected-color; } } } }
-
-}
+	background: $selected-color; } } } } }
