@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { format, getHours, getMinutes, getSeconds, startOfToday } from 'date-fns';
 
+import scrollToItem from '../helpers/scrollToItem';
+
 import './styles/TimePicker.scss';
 
 const TimePicker = ({ id, select, value }) => {
@@ -14,6 +16,13 @@ const TimePicker = ({ id, select, value }) => {
 	// Save the selected date in the state
 	const [selected, setSelected] = useState({});
 
+   // Jump to selected values on first opening of the picker
+   useEffect(() => {
+      if (value) scrollToItem(`${id}-picker-h`, `${id}-h-${getHours(value)}`, true);
+      if (value) scrollToItem(`${id}-picker-m`, `${id}-m-${getMinutes(value)}`, true);
+      if (value) scrollToItem(`${id}-picker-s`, `${id}-s-${getSeconds(value)}`, true);
+   }, []);
+
 	// Update the selected state, set the value of the input box
 	useEffect(() => {
 		const selectedValues = { h: getHours(value), m: getMinutes(value), s: getSeconds(value) };
@@ -22,40 +31,16 @@ const TimePicker = ({ id, select, value }) => {
 		setSelected(selectedValues);
 	}, [value]);
 
-	// Scroll to selected item in list
-	const scrollToItem = (panel, step = 10, scroll = true) => {
-		if (!selected[panel]) return;
-		const container = document.getElementById(`${id}-picker-${panel}`);
-		const target = document.getElementById(`${id}-${panel}-${selected[panel]}`);
-		const offsetOfTargetItem = target.offsetTop - 31;
-		if (scroll) {
-			const interval = setInterval(() => {
-				const distanceFromTargetItem = offsetOfTargetItem - container.scrollTop;
-				if (distanceFromTargetItem < 0) {
-					if ((distanceFromTargetItem + step) < 0) {
-						container.scrollBy(0, -step);
-					} else {
-						container.scrollBy(0, distanceFromTargetItem);
-					}
-				} else if (distanceFromTargetItem > 0) {
-					if ((distanceFromTargetItem - step) > 0) {
-						container.scrollBy(0, step);
-					} else {
-						container.scrollBy(0, distanceFromTargetItem);
-					}
-				} else {
-					clearInterval(interval);
-				}
-			}, 5);
-		} else {
-			container.scrollTop = offsetOfTargetItem;
-		}
-	};
-
 	// Scroll to selected time values
-	useEffect(() => { scrollToItem('h'); }, [selected.h]);
-	useEffect(() => { scrollToItem('m'); }, [selected.m]);
-	useEffect(() => { scrollToItem('s'); }, [selected.s]);
+	useEffect(() => {
+      if (selected.h) scrollToItem(`${id}-picker-h`, `${id}-h-${selected.h}`);
+   }, [selected.h]);
+	useEffect(() => {
+      if (selected.m) scrollToItem(`${id}-picker-m`, `${id}-m-${selected.m}`);
+   }, [selected.m]);
+	useEffect(() => {
+      if (selected.s) scrollToItem(`${id}-picker-s`, `${id}-s-${selected.s}`);
+   }, [selected.s]);
 
 	// Render picker lists
 	const renderList = (amount, panel, onClick) => {
