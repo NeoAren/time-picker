@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { format, getHours, getMinutes, getSeconds, startOfToday } from 'date-fns';
+import { format, getHours, getMinutes, getSeconds } from 'date-fns';
 
 import scrollToItem from '../helpers/scrollToItem';
 
@@ -25,7 +25,7 @@ const TimePicker = ({ id, select, value }) => {
 
 	// Update the selected state, set the value of the input box
 	useEffect(() => {
-		const selectedValues = { h: getHours(value), m: getMinutes(value), s: getSeconds(value) };
+		const selectedValues = value ? { h: getHours(value), m: getMinutes(value), s: getSeconds(value) } : {};
 		const input = document.querySelector('.' + className + '__input');
 		if (input) input.value = !value ? '' : format(value, 'HH:mm:ss');
 		setSelected(selectedValues);
