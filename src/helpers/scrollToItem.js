@@ -1,9 +1,6 @@
-//
-// Scroll to a target element inside a container
-//
-
 /**
  * Scroll to a target element inside a container
+ *
  * @param {string} containerID The DOM ID of the container
  * @param {string} targetID The DOM ID of the target
  * @param {boolean} jump Jump instead of scrolling, default: false
@@ -32,23 +29,27 @@ const scrollToItem = (containerID, targetID, jump = false) => {
 		return;
 	}
 
+	// Calculate the step for a smoother experience
+	const height = containerElement.clientHeight;
+	const distanceToScroll = Math.floor(Math.abs(offsetOfTargetElement - containerElement.scrollTop));
+	const step = distanceToScroll > height ? height / 2 : distanceToScroll > height / 2 ? height / 10 : height / 15;
+
 	// Continuously scroll to the target element
 	const scroll = setInterval(() => {
 
 		// Get the distance from the target element
-		const currentScrollPosition = containerElement.scrollTop;
-		const distanceFromTargetElement = offsetOfTargetElement - currentScrollPosition;
+		const distanceFromTargetElement = offsetOfTargetElement - containerElement.scrollTop;
 
-		// Scroll in the direction of the target element, step = 10 or the remaining distance
+		// Scroll in the direction of the target element with step or the remaining distance
 		if (distanceFromTargetElement < 0) {
-			if ((distanceFromTargetElement + 10) < 0) {
-				containerElement.scrollBy(0, -10);
+			if ((distanceFromTargetElement + step) < 0) {
+				containerElement.scrollBy(0, -step);
 			} else {
 				containerElement.scrollBy(0, distanceFromTargetElement);
 			}
 		} else if (distanceFromTargetElement > 0) {
-			if ((distanceFromTargetElement - 10) > 0) {
-				containerElement.scrollBy(0, 10);
+			if ((distanceFromTargetElement - step) > 0) {
+				containerElement.scrollBy(0, step);
 			} else {
 				containerElement.scrollBy(0, distanceFromTargetElement);
 			}
