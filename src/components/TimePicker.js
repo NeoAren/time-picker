@@ -13,8 +13,9 @@ const TimePicker = ({ id, select, value }) => {
    const style = inputElement && { top: inputElement.offsetTop, left: inputElement.offsetLeft };
 	const className = 'neotimepicker-picker';
 
-	// Save the selected date in the state
+	// Save the selected and the formatted date in the state
 	const [selected, setSelected] = useState({});
+	const [formatted, setFormatted] = useState('');
 
    // Jump to selected values on first opening of the picker
    useEffect(() => {
@@ -26,20 +27,19 @@ const TimePicker = ({ id, select, value }) => {
 	// Update the selected state, set the value of the input box
 	useEffect(() => {
 		const selectedValues = value ? { h: getHours(value), m: getMinutes(value), s: getSeconds(value) } : {};
-		const input = document.querySelector('.' + className + '__input');
-		if (input) input.value = !value ? '' : format(value, 'HH:mm:ss');
+		if (value) setFormatted(format(value, 'HH:mm:ss'));
 		setSelected(selectedValues);
 	}, [value]);
 
 	// Scroll to selected time values
 	useEffect(() => {
-      if (selected.h) scrollToItem(`${id}-picker-h`, `${id}-h-${selected.h}`);
+      if (Number.isInteger(selected.h)) scrollToItem(`${id}-picker-h`, `${id}-h-${selected.h}`);
    }, [selected.h]);
 	useEffect(() => {
-      if (selected.m) scrollToItem(`${id}-picker-m`, `${id}-m-${selected.m}`);
+      if (Number.isInteger(selected.m)) scrollToItem(`${id}-picker-m`, `${id}-m-${selected.m}`);
    }, [selected.m]);
 	useEffect(() => {
-      if (selected.s) scrollToItem(`${id}-picker-s`, `${id}-s-${selected.s}`);
+      if (Number.isInteger(selected.s)) scrollToItem(`${id}-picker-s`, `${id}-s-${selected.s}`);
    }, [selected.s]);
 
 	// Render timepicker lists
@@ -55,11 +55,22 @@ const TimePicker = ({ id, select, value }) => {
 		return items;
 	};
 
+	// Validate the manual input
+	const validateInput = e => {
+		const value = e.target.value;
+		setFormatted(value);
+		if (!value.match(/^(\d{2}):(\d{2}):(\d{2})$/)) return;
+		const split = value.split(':');
+		const time = { h: Number(split[0]), m: Number(split[1]), s: Number(split[2]) };
+		if (time.h > 23 || time.m > 59 || time.s > 59) return;
+		select(time);
+	};
+
 	// Render 'TimePicker' component
 	return (
 		<div id={id + '-picker'} className={className} style={style}>
          <div className={className + '__input-wrapper'}>
-            <input className={className + '__input'} autoFocus={true} placeholder="HH:mm:ss" />
+            <input className={className + '__input'} value={formatted} onChange={validateInput} autoFocus={true} placeholder="HH:mm:ss" />
          </div>
          <div className={className + '__body'}>
 				<div id={id + '-picker-h'} className={className + '__body-panel'}>

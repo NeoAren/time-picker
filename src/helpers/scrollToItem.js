@@ -1,6 +1,13 @@
 //
-// Scroll to a given target inside a container
+// Scroll to a target element inside a container
 //
+
+/**
+ * Scroll to a target element inside a container
+ * @param {string} containerID The DOM ID of the container
+ * @param {string} targetID The DOM ID of the target
+ * @param {boolean} jump Jump instead of scrolling, default: false
+ */
 
 const scrollToItem = (containerID, targetID, jump = false) => {
 

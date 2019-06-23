@@ -69,21 +69,6 @@ const Wrapper = ({ id, defaultValue, onChange, placeholder }) => {
       getNode('body').appendChild(containerElement);
    }, []);
 
-   // Validate input in picker__input
-   useEffect(() => {
-      const validateInput = e => {
-         /*const input = getNode('.neodatepicker-picker__input');
-         const picker = getNode('#' + id + '-picker');
-         if (!open || !picker || !input || e.key !== 'Enter' || !picker.contains(e.target)) return;
-         const value = input.value;
-         if (value.match(/^(\d{4})-(\d{2})-(\d{2})$/) && value === format(parse(value), 'YYYY-MM-DD')) {
-            select(parse(value));
-         }*/
-      };
-      document.addEventListener('keyup', validateInput);
-      return () => document.removeEventListener('keyup', validateInput);
-   });
-
 	// Render the 'InputField' and the 'TimePicker'
 	return (
 		<>
