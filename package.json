@@ -1,6 +1,6 @@
 {
 	"name": "@neoaren/time-picker",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "A modern and easy-to-use React time picker component",
 	"author": "NeoAren",
 	"license": "MIT",
