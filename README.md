@@ -35,7 +35,12 @@ const App = () => {
 
 ## Component API
 
-To be added
+| Name         	|       Type      	| Required 	| Description                                                                                                                                        	|
+|--------------	|:---------------:	|:--------:	|----------------------------------------------------------------------------------------------------------------------------------------------------	|
+| id           	|     `String`    	|  `true`  	| The unique identifier of the time-picker element.                                                                                                  	|
+| defaultValue 	| `Number` `Date` 	|  `false` 	| The default value of the time-picker.                                                                                                              	|
+| onChange     	|    `Function`   	|  `false` 	| This function runs when the selected time changes. The only parameter to be passed is an object containing the selected time in different formats. 	|
+| placeholder  	|     `String`    	|  `false` 	| The text to be displayed when no time is selected.                                                                                                 	|
 
 ## License
 
