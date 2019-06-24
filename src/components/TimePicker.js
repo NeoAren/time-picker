@@ -15,13 +15,15 @@ const TimePicker = ({ id, select, value }) => {
 
 	// Save the selected and the formatted date in the state
 	const [selected, setSelected] = useState({});
-	const [formatted, setFormatted] = useState('');
+	const [formatted, setFormatted] = useState(!value ? '' : format(value, 'HH:mm:ss'));
 
-   // Jump to selected values on first opening of the picker
+   // Open the picker for the first time, jump to selected values
    useEffect(() => {
       if (value) scrollToItem(`${id}-picker-h`, `${id}-h-${getHours(value)}`, true);
       if (value) scrollToItem(`${id}-picker-m`, `${id}-m-${getMinutes(value)}`, true);
-      if (value) scrollToItem(`${id}-picker-s`, `${id}-s-${getSeconds(value)}`, true);
+		if (value) scrollToItem(`${id}-picker-s`, `${id}-s-${getSeconds(value)}`, true);
+		const bodyElement = document.querySelector('.neotimepicker--closed');
+		bodyElement.classList.remove('neotimepicker--closed');
    }, []);
 
 	// Update the selected state, set the value of the input box
@@ -72,7 +74,7 @@ const TimePicker = ({ id, select, value }) => {
          <div className={className + '__input-wrapper'}>
             <input className={className + '__input'} value={formatted} onChange={validateInput} autoFocus={true} placeholder="HH:mm:ss" />
          </div>
-         <div className={className + '__body'}>
+         <div className={className + '__body neotimepicker--closed'}>
 				<div id={id + '-picker-h'} className={className + '__body-panel'}>
 					<ul>
 						{renderList(24, 'h', val => select({ h: val }))}
