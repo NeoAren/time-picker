@@ -3,6 +3,7 @@ import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import postcss from 'rollup-plugin-postcss';
 import replace from 'rollup-plugin-replace';
+import autoprefixer from 'autoprefixer';
 import babel from 'rollup-plugin-babel';
 import pkg from './package.json';
 
@@ -17,7 +18,8 @@ export default {
 			includeDependencies: true
 		}),
 		postcss({
-			// modules: true
+         // modules: true,
+         plugins: [ autoprefixer ]
 		}),
 		babel({
 			babelrc: false,

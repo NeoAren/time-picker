@@ -44,7 +44,7 @@ $list-background-color: #bbbbbb;
 	outline: 0 !important;
 	font-variant: tabular-nums;
 	font-feature-settings: "tnum";
-&::-webkit-input-placeholder {
+&::placeholder {
    color: $second-text-color; } }
 
 // Body
@@ -52,7 +52,7 @@ $list-background-color: #bbbbbb;
 	display: grid;
 	grid-gap: 1px;
 	height: 100%;
-	border-radius: 5px;
+	border-radius: 0 0 5px 5px;
    transition: height 0.2s ease-in;
 	background: $border-color;
 	grid-template-columns: repeat(3, 1fr);
