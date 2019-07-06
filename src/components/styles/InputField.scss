@@ -1,23 +1,45 @@
 //
-// NEO-TIME-PICKER - INPUT FIELD DESIGN
+// INPUT FIELD DESIGN - NEOAREN
 //
 
-// TimePicker: input field
+// InputField
 .neotimepicker-input {
    display: grid;
-   width: 170px;
-   height: 32px;
-   border-radius: 5px;
    transition: all .3s;
    align-items: center;
    margin: 0 !important;
    outline: 0 !important;
    background: #ffffff;
    box-sizing: border-box;
-   border: 1px solid #dddddd;
-   grid-template-columns: 1fr max-content max-content;
+   border-radius: 5px;
+   border-style: solid;
+   border-color: #dddddd;
+	grid-template-columns: 1fr max-content max-content;
+@media (min-resolution: 1dppx) {
+   width: 170px;
+	height: 30px;
+	border-width: 1px; }
+@media (min-resolution: 1.25dppx) {
+	width: 136px;
+   height: 24px;
+	border-width: 1px; }
+@media (min-resolution: 1.5dppx) {
+	// width: 120px;
+	// height: 22px;
+	// border: 1pt solid #dddddd;
+}
+@media (min-resolution: 1.75dppx) {
+	// width: 120px;
+	// height: 24px;
+	// border: 1pt solid #dddddd;
+}
+@media (min-resolution: 2dppx) {
+	// width: 85px;
+	// height: 15px;
+	// border: 1pt solid #dddddd;
+}
 
-// Input field
+// Input element
 &__field {
    display: grid;
    height: 100%;
@@ -51,20 +73,24 @@ svg {
 &__close-icon {
    display: grid;
    height: 100%;
+   width: 0;
    opacity: 0;
-   padding: 0;
    fill: #ffffff;
    border-radius: 50%;
    align-items: center;
    background: #dddddd;
+   justify-items: center;
    border: 0 solid #ffffff;
    transition: opacity 0.4s, background-color 0.4s;
 svg {
    width: 0;
-   height: 0; }
+   height: 0;
+   padding: 0;
+   border-radius: 50%;
+   background-color: #dddddd; }
 &:hover {
    cursor: pointer;
-   background: #bbbbbb; } }
+   background-color: #bbbbbb; } }
 
 // Switch between clock and close icons
 &:hover > &__field:not([value=""]) ~ &__clock-icon {
@@ -76,11 +102,12 @@ svg {
    height: 0; } }
 &:hover > &__field:not([value=""]) ~ &__close-icon {
    opacity: 1;
-   padding: 3px;
+   width: 30px;
    border-width: 6px;
 svg {
-   width: 12px;
-   height: 12px; } }
+   width: 18px;
+   height: 18px;
+   padding: 3px; } }
 
 // Hovered and active styles
 &:hover {
