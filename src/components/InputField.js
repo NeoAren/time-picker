@@ -15,11 +15,11 @@ const InputField = ({ id, selected, clear, placeholder }) => {
    // Render 'InputField' component
    return (
       <div id={id + '-input'} className={className}>
-         <input readOnly className={className + '__field'} value={time} placeholder={placeholder} />
-         <i className={className + '__close-icon'} onClick={clear}><Close /></i>
-         <i className={className + '__clock-icon'}><Clock /></i>
+			<input readOnly className={className + '__field'} value={time} placeholder={placeholder} />
+			<i className={className + '__close-icon'} onClick={clear}><Close /></i>
+			<i className={className + '__clock-icon'}><Clock /></i>
       </div>
-   );
+	);
 
 };
 
