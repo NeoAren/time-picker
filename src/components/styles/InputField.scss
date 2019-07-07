@@ -27,7 +27,7 @@
 	height: 26px;
 	border-width: 1px; }
 @media (min-resolution: 1.75dppx) {
-	width: 120px;
+	width: 112px;
 	height: 24px;
 	border-width: 1px; }
 
@@ -35,10 +35,10 @@
 &__field {
 	min-width: 0px;
 	color: #354052;
-	padding: 0px 10px;
 	outline: 0 !important;
 	border: none !important;
 	box-sizing: border-box;
+	padding: 0px 5px 0px 10px;
 	font-variant: tabular-nums;
 	font-feature-settings: "tnum";
 &::placeholder {
@@ -53,7 +53,7 @@
 	margin: 1px;
 	font-size: 13px; }
 @media (min-resolution: 1.75dppx) {
-	margin: 0;
+	margin: 1px;
 	font-size: 12px; } }
 
 // Clock icon
@@ -80,9 +80,10 @@
 	height: 22px;
 	border-width: 2px; }
 @media (min-resolution: 1.75dppx) {
-	width: 22px;
-	height: 22px;
-	border-width: 4px; } }
+   margin: 1px;
+	width: 20px;
+	height: 20px;
+	border-width: 2px; } }
 
 // Close icon
 &__close-icon {
@@ -113,24 +114,28 @@
 	opacity: 0 !important; }
 &:hover > &__field:not([value=""]) ~ &__close-icon {
 	opacity: 1;
-	padding: 3px;
-@media (min-resolution: 1dppx) {
+@media (resolution: 1dppx) {
 	width: 28px;
 	height: 28px;
+	padding: 3px;
 	border-width: 5px; }
-@media (min-resolution: 1.25dppx) {
+@media (resolution: 1.25dppx) {
 	width: 26px;
 	height: 26px;
+	padding: 3px;
 	border-width: 5px; }
-@media (min-resolution: 1.5dppx) {
+@media (resolution: 1.5dppx) {
 	margin: 1px;
 	width: 22px;
 	height: 22px;
+	padding: 3px;
 	border-width: 3px; }
-@media (min-resolution: 1.75dppx) {
-	width: 22px;
-	height: 22px;
-	border-width: 4px; } }
+@media (resolution: 1.75dppx) {
+   margin: 1px;
+	width: 20px;
+	height: 20px;
+	padding: 2px;
+	border-width: 3px; } }
 
 // SVG icon design
 &__clock-icon > svg,
